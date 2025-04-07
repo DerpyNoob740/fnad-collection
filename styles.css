@@ -5,36 +5,39 @@ body {
   padding: 0;
   position: relative;
   z-index: 0;
-  overflow: hidden;
+  min-height: 200vh; /* Test scroll */
 }
 
-/* Static background with hue rotation */
+/* Animated hue-shift background */
 body::before {
   content: "";
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(
     45deg,
-    #ff0044,
-    #ffe100
+    red,
+    orange
   );
   background-size: cover;
-  background-attachment: fixed;
-
-  filter: hue-rotate(0deg);
-  animation: hueShift 20s linear infinite;
+  z-index: -1;
+  animation: hueShift 10s linear infinite;
+  pointer-events: none;
+  filter: hue-rotate(0deg); /* Start the shift */
 }
 
+/* Hue shift animation */
 @keyframes hueShift {
-  to {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
     filter: hue-rotate(360deg);
   }
 }
+
 
 /* Header styles */
 h1,
