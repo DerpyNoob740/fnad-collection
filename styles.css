@@ -1,29 +1,38 @@
-/* Basic body styles */
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(
-    45deg,
-    #ff0044,
-    #ffe100,
-    #00ff4c,
-    #0377fc,
-    #dd00ff
-  );
-  background-size: 100% 100%; /* Large enough to allow smooth scrolling */
-  background-attachment: fixed; /* Keeps the background fixed as you scroll */
-  animation: gradientAnimation 5s linear infinite; /* Animate the gradient infinitely */
   color: #dddddd;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
 }
 
-/* Gradient animation settings */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 0%; /* Start at the top-left corner */
-  }
-  100% {
-    background-position: 100% 100%; /* Continuously move towards the bottom-right corner */
+/* Static background with hue rotation */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  background: linear-gradient(
+    45deg,
+    #ff0044,
+    #ffe100
+  );
+  background-size: cover;
+  background-attachment: fixed;
+
+  filter: hue-rotate(0deg);
+  animation: hueShift 20s linear infinite;
+}
+
+@keyframes hueShift {
+  to {
+    filter: hue-rotate(360deg);
   }
 }
 
