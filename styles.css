@@ -16,11 +16,7 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-    45deg,
-    red,
-    orange
-  );
+  background: linear-gradient(45deg, #660000, #B34D00);
   background-size: cover;
   z-index: -1;
   animation: hueShift 10s linear infinite;
@@ -37,7 +33,6 @@ body::before {
     filter: hue-rotate(360deg);
   }
 }
-
 
 /* Header styles */
 h1,
@@ -205,4 +200,14 @@ footer p {
   border-radius: 15px; /* Rounded corners */
   margin-bottom: 10px; /* Space below images */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Shadow effect */
+}
+/* Canvas styles for particles */
+canvas {
+  position: fixed; /* Fix canvas in the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Cover full width */
+  height: 100vh; /* Cover full height */
+  z-index: -1; /* Place behind all content */
+  pointer-events: none; /* Prevent canvas from blocking clicks */
 }
