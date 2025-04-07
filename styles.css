@@ -4,11 +4,10 @@ body {
   background: linear-gradient(
     45deg,
     #ff0044,
-    #ff8c00,
-    #1e8bff,
-    #a2c5f2,
-    #00ffcc,
-    #800080
+    #ffe100,
+    #00ff4c,
+    #0377fc,
+    #dd00ff
   ); /* Gradient background */
   background-size: 600% 600%; /* Gradient size */
   animation: gradientAnimation 8s ease infinite; /* Gradient animation */
@@ -21,7 +20,7 @@ body {
 @keyframes gradientAnimation {
   0%,
   100% {
-    background-position: 0% 50%;
+    background-position: 0% 0%;
   } /* Start and end gradient position */
   50% {
     background-position: 100% 50%;
