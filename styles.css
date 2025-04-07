@@ -1,29 +1,29 @@
+/* Basic body styles */
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(
     45deg,
-    #ff0044 0%,
-    #ffe100 25%,
-    #00ff4c 50%,
-    #0377fc 75%,
-    #dd00ff 100%
+    #ff0044,
+    #ffe100,
+    #00ff4c,
+    #0377fc,
+    #dd00ff
   );
-  background-size: 500% 500%;
-  animation: gradientAnimation 20s ease infinite;
+  background-size: 100% 100%; /* Large enough to allow smooth scrolling */
+  background-attachment: fixed; /* Keeps the background fixed as you scroll */
+  animation: gradientAnimation 5s linear infinite; /* Animate the gradient infinitely */
   color: #dddddd;
   margin: 0;
   padding: 0;
 }
 
+/* Gradient animation settings */
 @keyframes gradientAnimation {
   0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
+    background-position: 0% 0%; /* Start at the top-left corner */
   }
   100% {
-    background-position: 0% 0%;
+    background-position: 100% 100%; /* Continuously move towards the bottom-right corner */
   }
 }
 
