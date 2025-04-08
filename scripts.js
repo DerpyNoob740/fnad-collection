@@ -1,80 +1,83 @@
-// particles.js
-
-// Create canvas element and append to body
-const canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
+// Particle canvas script (zero gravity float + mouse repulsion + glow)
+const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-
-// Adjust canvas size to window dimensions
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// Particle class to handle individual particles
+const particleCount = 200;
+const particles = [];
+const mouse = {
+  x: null,
+  y: null,
+  radius: 100
+};
+
+window.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
 class Particle {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.size = Math.random() * 5 + 2;  // Random size between 2 and 7px
-    this.speedX = Math.random() * 0.5 - 0.25;  // Slow horizontal speed
-    this.speedY = Math.random() * 0.5 + 0.2;  // Slow vertical speed, drifting down
-    this.color = 'rgba(255, 255, 255, 0.7)'; // White color for visibility
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.size = Math.random() * 2 + 1;
   }
 
   update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-
-    // Reset particle to the top when it goes off-screen
-    if (this.y > canvas.height) {
-      this.y = 0;
-      this.x = Math.random() * canvas.width; // Random horizontal position
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < mouse.radius) {
+      const angle = Math.atan2(dy, dx);
+      const force = (mouse.radius - dist) / mouse.radius;
+      this.vx -= Math.cos(angle) * force * 0.1;
+      this.vy -= Math.sin(angle) * force * 0.1;
     }
+
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // bounce off edges
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
   }
 
   draw() {
-    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.closePath();
+    ctx.fillStyle = "rgba(255, 204, 0, 0.8)";
+    ctx.shadowColor = "#ffcc00";
+    ctx.shadowBlur = 10;
     ctx.fill();
   }
 }
 
-// Array to hold particles
-const particlesArray = [];
-
-// Event listener to create particles on page load
-window.addEventListener('load', () => {
-  for (let i = 0; i < 200; i++) {  // Create a large number of particles
-    let particle = new Particle(Math.random() * canvas.width, Math.random() * canvas.height); // Random initial positions
-    particlesArray.push(particle);
+function initParticles() {
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
   }
-});
-
-// Animation loop to update and draw particles
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-
-  // Update and draw each particle
-  for (let i = 0; i < particlesArray.length; i++) {
-    particlesArray[i].update();
-    particlesArray[i].draw();
-  }
-
-  requestAnimationFrame(animateParticles); // Request next frame
 }
 
-// Start the particle animation
-animateParticles();
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p) => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
 
-// Resize canvas when the window is resized
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  // Reposition particles randomly within the new window size after resizing
-  for (let i = 0; i < particlesArray.length; i++) {
-    particlesArray[i].x = Math.random() * canvas.width;
-    particlesArray[i].y = Math.random() * canvas.height;
-  }
-});
+initParticles();
+animate();
