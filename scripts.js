@@ -1,4 +1,3 @@
-// Particle canvas script (tethered float + mouse repulsion + glow + lines)
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -9,7 +8,7 @@ const particles = [];
 const mouse = {
   x: null,
   y: null,
-  radius: 100,
+  radius: 100
 };
 
 window.addEventListener("mousemove", (e) => {
@@ -34,23 +33,42 @@ class Particle {
   }
 
   update() {
+    // Home tether
     const dx = this.homeX - this.x;
     const dy = this.homeY - this.y;
-    this.vx += dx * 0.0025; // spring pull
+    this.vx += dx * 0.0025;
     this.vy += dy * 0.0025;
 
+    // Mouse repulsion
     const mdx = mouse.x - this.x;
     const mdy = mouse.y - this.y;
-    const dist = Math.sqrt(mdx * mdx + mdy * mdy);
-    if (dist < mouse.radius) {
+    const distMouse = Math.sqrt(mdx * mdx + mdy * mdy);
+    if (distMouse < mouse.radius) {
       const angle = Math.atan2(mdy, mdx);
-      const force = (mouse.radius - dist) / mouse.radius;
-      this.vx -= Math.cos(angle) * force * 0.5;
-      this.vy -= Math.sin(angle) * force * 0.5;
+      const force = (mouse.radius - distMouse) / mouse.radius;
+      this.vx -= Math.cos(angle) * force * 0.2;
+      this.vy -= Math.sin(angle) * force * 0.2;
     }
 
-    this.vx *= 0.92; // decay
-    this.vy *= 0.92;
+    // Clumping behavior
+    for (let other of particles) {
+      if (other === this) continue;
+      const dx = other.x - this.x;
+      const dy = other.y - this.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 75 && dist > 25) {
+        this.vx += dx * 0.0005;
+        this.vy += dy * 0.0005;
+      } else if (dist <= 10) {
+        this.vx -= dx * 0.001;
+        this.vy -= dy * 0.001;
+      }
+    }
+
+    // Decay and move
+    this.vx *= 0.95;
+    this.vy *= 0.95;
     this.x += this.vx;
     this.y += this.vy;
   }
@@ -66,55 +84,25 @@ class Particle {
 }
 
 function drawConnections() {
-  const cellSize = 100;
-  const grid = {};
-
-  // Organize particles into grid cells
-  for (let p of particles) {
-    const gx = Math.floor(p.x / cellSize);
-    const gy = Math.floor(p.y / cellSize);
-    const key = `${gx},${gy}`;
-    if (!grid[key]) grid[key] = [];
-    grid[key].push(p);
-  }
-
-  for (let key in grid) {
-    const [gx, gy] = key.split(',').map(Number);
-    const cellA = grid[key];
-
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dy = -1; dy <= 1; dy++) {
-        const neighborKey = `${gx + dx},${gy + dy}`;
-        const cellB = grid[neighborKey];
-        if (!cellB) continue;
-
-        for (let i = 0; i < cellA.length; i++) {
-          let connections = 0;
-          for (let j = 0; j < cellB.length; j++) {
-            const p1 = cellA[i];
-            const p2 = cellB[j];
-            if (p1 === p2) continue;
-
-            const dx = p1.x - p2.x;
-            const dy = p1.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 1) {
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 100})`;
-              ctx.lineWidth = 0.5;
-              ctx.moveTo(p1.x, p1.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
-              connections++;
-              if (connections >= 3) break;
-            }
-          }
-        }
+  const maxConnections = 2;
+  for (let i = 0; i < particles.length; i++) {
+    let connections = 0;
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 75 && connections < maxConnections) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 75})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+        connections++;
       }
     }
   }
 }
-
 
 function initParticles() {
   particles.length = 0;
