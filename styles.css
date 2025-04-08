@@ -5,10 +5,10 @@ body {
   padding: 0;
   position: relative;
   z-index: 0;
-  min-height: 200vh; /* Test scroll */
+  min-height: 200vh; /* For testing scroll */
 }
 
-/* Animated hue-shift background */
+/* Animated background */
 body::before {
   content: "";
   position: fixed;
@@ -21,199 +21,178 @@ body::before {
   z-index: -1;
   animation: hueShift 10s linear infinite;
   pointer-events: none;
-  filter: hue-rotate(0deg); /* Start the shift */
+  filter: hue-rotate(0deg);
 }
 
-/* Hue shift animation */
 @keyframes hueShift {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-  100% {
-    filter: hue-rotate(360deg);
-  }
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
-/* Header styles */
-h1,
-h2,
-h3 {
-  text-align: center; /* Center text */
-  color: #ffcc00; /* Yellow color */
-  text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.7); /* Glow effect */
-  transition: text-shadow 0.3s, transform 0.3s, color 0.3s; /* Smooth transition */
-  filter: hue-rotate(0deg); /* Apply hue shift to text */
+/* Headings */
+h1, h2, h3 {
+  text-align: center;
+  color: #ffcc00;
+  text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.7);
+  transition: all 0.3s ease;
+  display: inline-block;
+  max-width: 100%;
 }
 
-/* Header hover effect */
-h1:hover,
-h2:hover,
-h3:hover {
-  text-shadow: 0 0 20px #ffcc00, 0 0 30px #ff8c00; /* Stronger glow */
-  transform: scale(1.05); /* Scale up */
-  transform-origin: center; /* Prevent layout shift */
+h1:hover, h2:hover, h3:hover {
+  text-shadow: 0 0 20px #ffcc00, 0 0 30px #ff8c00;
+  transform: scale(1.05);
 }
 
-/* Navigation styles */
+/* Navigation */
 nav ul {
-  list-style: none; /* Remove list bullets */
-  padding: 0; /* Remove padding */
-  display: flex; /* Flexbox layout */
-  justify-content: center; /* Center nav items */
-  background: #222222; /* Dark background */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  background: #222;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  flex-wrap: wrap;
 }
 
-/* Nav list item styles */
 nav ul li {
-  margin: 0 15px; /* Spacing between items */
+  margin: 0 15px;
 }
 
-/* Nav link and footer link styles */
-footer a,
-nav ul li a {
-  color: #dddddd; /* Light text color */
-  font-size: 1.1em; /* Font size */
-  text-decoration: none; /* Remove underline */
-  padding: 10px; /* Padding around text */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Smooth transition */
+nav ul li a,
+footer a {
+  color: #dddddd;
+  font-size: 1.1em;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
-/* Hover effect for nav and footer links */
-footer a:hover,
-nav ul li a:hover {
-  background: #ff8c00; /* Orange background */
-  color: #ffffff; /* White text */
-  transform: rotate(5deg) scale(1.1); /* Rotate and scale */
+nav ul li a:hover,
+footer a:hover {
+  background: #ff8c00;
+  color: #ffffff;
+  transform: rotate(5deg) scale(1.1);
 }
 
-/* Section styles */
+/* Sections */
 section,
 #reviews {
-  padding: 40px; /* Padding inside sections */
-  margin: 20px 0; /* Spacing between sections */
-  border-radius: 10px; /* Rounded corners */
-  background: rgba(35, 35, 35, 0.8); /* Semi-transparent dark background */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Shadow effect */
-  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
+  padding: 40px;
+  margin: 20px 0;
+  border-radius: 10px;
+  background: rgba(35, 35, 35, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
 }
 
-/* Hover effect for sections */
 section:hover {
-  transform: translateY(-10px); /* Move section up */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+  transform: translateY(-10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
 }
 
-/* Divider style */
+/* Divider */
 .section-divider {
-  border: none; /* Remove border */
-  height: 2px; /* Set height */
-  background: #444444; /* Dark color */
-  margin: 40px 0; /* Spacing around the divider */
+  border: none;
+  height: 2px;
+  background: #444;
+  margin: 40px 0;
 }
 
-/* Footer styles */
+/* Footer */
 footer {
-  background: #222222; /* Dark background */
-  padding: 30px; /* Padding inside footer */
-  text-align: center; /* Center text */
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Shadow effect */
-  margin-top: 40px; /* Space between footer and content */
+  background: #222;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+  margin-top: 40px;
 }
 
-/* Footer text styles */
 footer p {
-  color: #dddddd; /* Light text color */
+  color: #dddddd;
 }
 
-/* Table styles in reviews */
+/* Reviews Table */
 #reviews table {
-  width: 100%; /* Full width */
-  border-collapse: collapse; /* Remove borders between cells */
-  margin-top: 20px; /* Space above table */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-/* Table header and cell styles */
 #reviews th,
 #reviews td {
-  padding: 10px; /* Padding inside cells */
-  border: 1px solid #555555; /* Border around cells */
-  text-align: center; /* Center text */
-  color: #dddddd; /* Light text color */
+  padding: 10px;
+  border: 1px solid #555;
+  text-align: center;
+  color: #dddddd;
 }
 
-/* Table header style */
 #reviews th {
-  background: #444444; /* Dark background */
-  color: #ffcc00; /* Yellow text */
+  background: #444;
+  color: #ffcc00;
 }
 
-/* Button styles */
+/* Buttons */
 .button {
-  display: inline-block; /* Display inline */
-  padding: 10px 20px; /* Padding inside button */
-  background: #ff8c00; /* Orange background */
-  color: #ffffff; /* White text */
-  border-radius: 5px; /* Rounded corners */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Shadow effect */
-  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, color 0.3s; /* Smooth transition */
-  text-decoration: none; /* Remove underline */
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ff8c00;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
 }
 
-/* Button hover effect */
 .button:hover {
-  background: #ffcc00; /* Change background to yellow */
-  transform: scale(1.05) rotate(5deg); /* Scale and rotate */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8); /* Stronger shadow */
-  color: #222222; /* Change text to dark color */
+  background: #ffcc00;
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+  color: #222;
 }
 
-/* No-button style */
 .no-button {
-  background: none; /* No background */
-  color: #ffcc00; /* Yellow text */
-  text-decoration: none; /* Remove underline */
+  background: none;
+  color: #ffcc00;
+  text-decoration: none;
 }
 
-/* Hover effect for no-button */
 .no-button:hover {
-  color: #ffffff; /* Change text color to white */
+  color: #ffffff;
 }
 
-/* Image section styles */
+/* Images */
 #images {
-  text-align: center; /* Center align images */
+  text-align: center;
 }
 
-/* Image item styles */
 .image-item {
-  margin: 30px auto; /* Center images with margin */
-  display: inline-block; /* Align images inline */
+  margin: 30px auto;
+  display: inline-block;
 }
 
-/* Game image styles */
 .game-image {
-  width: 50%; /* Set image width */
-  border-radius: 15px; /* Rounded corners */
-  margin-bottom: 10px; /* Space below images */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Shadow effect */
-  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out; /* Smooth transition for hue and transform */
-  filter: hue-rotate(0deg); /* Prevent images from being affected by the background hue shift */
+  width: 50%;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+  filter: hue-rotate(0deg);
 }
 
-/* Hover effect for game images */
 .game-image:hover {
-  transform: scale(1.1) rotate(5deg); /* Scale and rotate */
+  transform: scale(1.1) rotate(5deg);
 }
 
-/* Canvas styles for particles */
+/* Canvas for background particles */
 canvas {
-  position: fixed; /* Fix canvas in the viewport */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* Cover full width */
-  height: 100vh; /* Cover full height */
-  z-index: -1; /* Place behind all content */
-  pointer-events: none; /* Prevent canvas from blocking clicks */
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
 }
