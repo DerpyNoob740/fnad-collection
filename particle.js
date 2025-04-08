@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const particleCount = 100;
+const particleCount = 150;
 const particles = [];
 const mouse = {
   x: null,
@@ -100,7 +100,7 @@ function drawConnections() {
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       // If particles are within range and have moved recently, draw a connection
-      if (dist < 50 && connections < maxConnections) {
+      if (dist < 75 && connections < maxConnections) {
         // Check if connection needs to be drawn (cached or not)
         const connectionId = `${i}-${j}`; // Unique connection identifier
 
@@ -111,7 +111,7 @@ function drawConnections() {
           particles[j].hasMoved()
         ) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 50})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 75})`;
           ctx.lineWidth = 0.5;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
