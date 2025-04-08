@@ -35,9 +35,6 @@ h3 {
   color: #ffcc00;
   text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.7);
   transition: all 0.3s ease;
-  display: block;
-  margin: 20px auto;
-  width: 100%;
   text-align: center;
 }
 
@@ -45,7 +42,6 @@ h1:hover,
 h2:hover,
 h3:hover {
   text-shadow: 0 0 20px #ffcc00, 0 0 30px #ff8c00;
-  transform: scale(1.05);
 }
 
 /* Navigation */
@@ -56,12 +52,7 @@ nav ul {
   justify-content: center;
   background: #222222;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  margin: 0;
-  flex-wrap: wrap;
-}
-
-nav ul li {
-  margin: 0 15px;
+  border-radius: 10px;
 }
 
 footer a,
@@ -83,8 +74,7 @@ nav ul li a:hover {
 
 /* Sections */
 section {
-  padding: 40px;
-  margin: 20px 0;
+  padding: 10px;
   border-radius: 10px;
   background: rgba(35, 35, 35, 0.8);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
