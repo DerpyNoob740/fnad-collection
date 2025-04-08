@@ -9,7 +9,7 @@ const particles = [];
 const mouse = {
   x: null,
   y: null,
-  radius: 100
+  radius: 100,
 };
 
 window.addEventListener("mousemove", (e) => {
@@ -30,35 +30,40 @@ class Particle {
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
+
+    this.baseVX = (Math.random() - 0.5) * 0.5;
+    this.baseVY = (Math.random() - 0.5) * 0.5;
+
+    this.vx = 0;
+    this.vy = 0;
+
     this.size = Math.random() * 2 + 1;
   }
 
-update() {
-  const dx = mouse.x - this.x;
-  const dy = mouse.y - this.y;
-  const dist = Math.sqrt(dx * dx + dy * dy);
+  update() {
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
 
-  if (dist < mouse.radius) {
-    const angle = Math.atan2(dy, dx);
-    const force = (mouse.radius - dist) / mouse.radius;
-    this.vx -= Math.cos(angle) * force * 0.2;
-    this.vy -= Math.sin(angle) * force * 0.2;
+    if (dist < mouse.radius) {
+      const angle = Math.atan2(dy, dx);
+      const force = (mouse.radius - dist) / mouse.radius;
+      this.vx -= Math.cos(angle) * force * 0.2;
+      this.vy -= Math.sin(angle) * force * 0.2;
+    }
+
+    // Decay the mouse-influenced velocity
+    this.vx *= 0.95;
+    this.vy *= 0.95;
+
+    // Apply movement
+    this.x += this.baseVX + this.vx;
+    this.y += this.baseVY + this.vy;
+
+    // bounce off edges
+    if (this.x < 0 || this.x > canvas.width) this.baseVX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.baseVY *= -1;
   }
-
-  // Decay the mouse-influenced velocity
-  this.vx *= 0.95;
-  this.vy *= 0.95;
-
-  // Apply movement
-  this.x += this.baseVX + this.vx;
-  this.y += this.baseVY + this.vy;
-
-  // bounce off edges
-  if (this.x < 0 || this.x > canvas.width) this.baseVX *= -1;
-  if (this.y < 0 || this.y > canvas.height) this.baseVY *= -1;
-}
 
   draw() {
     ctx.beginPath();
