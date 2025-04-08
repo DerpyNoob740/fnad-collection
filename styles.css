@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   color: #dddddd;
   z-index: 0;
-  margin: 0;
+  margin: 40;
 }
 
 /* Global overlays: animated background + particle canvas */
@@ -36,15 +36,9 @@ h1,
 h2,
 h3 {
   color: #ffcc00;
-  text-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+  text-shadow: 0 0 15px;
   text-align: center;
   transition: all 0.3s ease;
-}
-
-h1:hover,
-h2:hover,
-h3:hover {
-  text-shadow: 0 0 30px #ffcc00, 0 0 30px #ff8c00;
 }
 
 /* Nav + Footer Containers */
@@ -112,7 +106,7 @@ section:hover {
 #reviews table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 #reviews th,
@@ -135,6 +129,6 @@ section:hover {
 .game-image {
   width: 50%;
   border-radius: 10px;
-  margin: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+  margin: 40px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
 }
