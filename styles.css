@@ -22,7 +22,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
 body {
   font-family: var(--font-main);
   color: var(--color-text);
@@ -76,7 +75,7 @@ footer {
 
 nav ul {
   list-style: none;
-  padding: 0;
+  padding: var(--padding);
   display: flex;
   justify-content: center;
   box-shadow: var(--shadow-default); /* override for nav */
@@ -103,7 +102,7 @@ footer a:hover,
 nav ul li a:hover {
   background: var(--color-accent);
   color: #ffffff;
-  transform: rotate(5deg) scale(1.1);
+  transform: scale(1.1);
 }
 
 /* Sections */
