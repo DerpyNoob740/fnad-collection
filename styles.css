@@ -4,10 +4,11 @@
   --color-accent: #ff8c00;
   --color-bg-dark: #222222;
   --color-bg-darker: #444444;
-  --color-bg-overlay: rgba(35, 35, 35, 0.8);
+  --color-bg-overlay: rgba(35, 35, 35, 0.6);
   --color-border: #555555;
 
   --shadow-default: 0 0 15px rgba(0, 0, 0, 0.6);
+  --shadow-highlight: 0 0 30px rgba(255, 204, 0, 1);
   --shadow-hover: 0 0 30px;
 
   --radius: 10px;
@@ -60,7 +61,7 @@ h1,
 h2,
 h3 {
   color: var(--color-highlight);
-  text-shadow: var(--shadow-default);
+  text-shadow: var(--shadow-highlight);
   text-align: center;
   transition: var(--transition);
 }
@@ -143,4 +144,18 @@ section:hover {
   border-radius: var(--radius);
   margin: var(--margin-large);
   box-shadow: var(--shadow-default);
+}
+
+@media (max-width: 768px) {
+  body {
+    margin: 20px;
+  }
+
+  .game-image {
+    width: 90%;
+  }
+
+  header, footer {
+    font-size: 0.9em;
+  }
 }
