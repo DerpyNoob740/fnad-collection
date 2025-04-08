@@ -3,13 +3,12 @@ body {
   color: #dddddd;
   margin: 0;
   padding: 0;
-  min-height: 200vh;
-  background: black;
   position: relative;
   z-index: 0;
+  min-height: 200vh; /* Test scroll */
 }
 
-/* Animated background */
+/* Animated hue-shift background */
 body::before {
   content: "";
   position: fixed;
@@ -17,240 +16,195 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(45deg, #660000, #B34D00);
+  background: linear-gradient(45deg, #660000, #b34d00);
   background-size: cover;
   z-index: -1;
   animation: hueShift 10s linear infinite;
   pointer-events: none;
+  filter: hue-rotate(0deg); /* Start the shift */
 }
 
+/* Hue shift animation */
 @keyframes hueShift {
-  0%   { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 /* Header styles */
-h1, h2, h3 {
-  color: #ffcc00;
-  text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.7);
-  transition: text-shadow 0.3s, transform 0.3s;
-  margin: 0 auto 20px;
-  text-align: center;
+h1,
+h2,
+h3 {
+  text-align: center; /* Center text */
+  color: #ffcc00; /* Yellow color */
+  text-shadow: 2px 2px 10px rgba(255, 204, 0, 0.7); /* Glow effect */
+  transition: text-shadow 0.3s, transform 0.3s, color 0.3s; /* Smooth transition */
 }
 
-h1:hover, h2:hover, h3:hover {
-  text-shadow: 0 0 15px #ffcc00, 0 0 25px #ff8c00;
-  transform: scale(1.05);
+/* Header hover effect */
+h1:hover,
+h2:hover,
+h3:hover {
+  text-shadow: 0 0 20px #ffcc00, 0 0 30px #ff8c00; /* Stronger glow */
+  transform: scale(1.05); /* Scale up */
 }
 
+/* Navigation styles */
 nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  background: #222;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  margin: 0;
+  list-style: none; /* Remove list bullets */
+  padding: 0; /* Remove padding */
+  display: flex; /* Flexbox layout */
+  justify-content: center; /* Center nav items */
+  background: #222222; /* Dark background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 
+/* Nav list item styles */
 nav ul li {
-  margin: 0 15px;
+  margin: 0 15px; /* Spacing between items */
 }
 
-nav ul li a,
-footer a {
-  color: #ddd;
-  font-size: 1.1em;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s, transform 0.3s;
+/* Nav link and footer link styles */
+footer a,
+nav ul li a {
+  color: #dddddd; /* Light text color */
+  font-size: 1.1em; /* Font size */
+  text-decoration: none; /* Remove underline */
+  padding: 10px; /* Padding around text */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, transform 0.3s, color 0.3s; /* Smooth transition */
 }
 
-nav ul li a:hover,
-footer a:hover {
-  background: #ff8c00;
-  color: #fff;
-  transform: rotate(5deg) scale(1.1);
+/* Hover effect for nav and footer links */
+footer a:hover,
+nav ul li a:hover {
+  background: #ff8c00; /* Orange background */
+  color: #ffffff; /* White text */
+  transform: rotate(5deg) scale(1.1); /* Rotate and scale */
 }
 
+/* Section styles */
 section,
 #reviews {
-  padding: 40px;
-  margin: 20px 0;
-  border-radius: 10px;
-  background: rgba(35, 35, 35, 0.8);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s, filter 0.3s;
-  position: relative;
-  overflow: hidden;
-  animation: hueShift 10s linear infinite;
+  padding: 40px; /* Padding inside sections */
+  margin: 20px 0; /* Spacing between sections */
+  border-radius: 10px; /* Rounded corners */
+  background: rgba(35, 35, 35, 0.8); /* Semi-transparent dark background */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Shadow effect */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
 
+/* Hover effect for sections */
 section:hover {
-  transform: translateY(-10px);
-  filter: drop-shadow(0 0 20px red) drop-shadow(0 0 20px orange) drop-shadow(0 0 20px yellow) drop-shadow(0 0 20px green) drop-shadow(0 0 20px blue);
+  transform: translateY(-10px); /* Move section up */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow */
 }
 
+/* Divider style */
 .section-divider {
-  height: 2px;
-  background: #444;
-  margin: 40px 0;
-  border: none;
+  border: none; /* Remove border */
+  height: 2px; /* Set height */
+  background: #444444; /* Dark color */
+  margin: 40px 0; /* Spacing around the divider */
 }
 
+/* Footer styles */
 footer {
-  background: #222;
-  padding: 30px;
-  text-align: center;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
-  margin-top: 40px;
+  background: #222222; /* Dark background */
+  padding: 30px; /* Padding inside footer */
+  text-align: center; /* Center text */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5); /* Shadow effect */
+  margin-top: 40px; /* Space between footer and content */
 }
 
+/* Footer text styles */
 footer p {
-  color: #ddd;
+  color: #dddddd; /* Light text color */
 }
 
+/* Table styles in reviews */
 #reviews table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Remove borders between cells */
+  margin-top: 20px; /* Space above table */
 }
 
+/* Table header and cell styles */
 #reviews th,
 #reviews td {
-  padding: 10px;
-  border: 1px solid #555;
-  text-align: center;
-  color: #ddd;
+  padding: 10px; /* Padding inside cells */
+  border: 1px solid #555555; /* Border around cells */
+  text-align: center; /* Center text */
+  color: #dddddd; /* Light text color */
 }
 
+/* Table header style */
 #reviews th {
-  background: #444;
-  color: #ffcc00;
+  background: #444444; /* Dark background */
+  color: #ffcc00; /* Yellow text */
 }
 
+/* Button styles */
 .button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #ff8c00;
-  color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  text-decoration: none;
-  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-  animation: pulseGlow 2s infinite;
+  display: inline-block; /* Display inline */
+  padding: 10px 20px; /* Padding inside button */
+  background: #ff8c00; /* Orange background */
+  color: #ffffff; /* White text */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Shadow effect */
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s, color 0.3s; /* Smooth transition */
+  text-decoration: none; /* Remove underline */
 }
 
+/* Button hover effect */
 .button:hover {
-  background: #ffcc00;
-  transform: scale(1.05) rotate(5deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
+  background: #ffcc00; /* Change background to yellow */
+  transform: scale(1.05) rotate(5deg); /* Scale and rotate */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+  color: #222222; /* Change text to dark color */
 }
 
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 10px #ff8c00; }
-  50%      { box-shadow: 0 0 20px #ffcc00; }
-}
-
+/* No-button style */
 .no-button {
-  background: none;
-  color: #ffcc00;
-  text-decoration: none;
+  background: none; /* No background */
+  color: #ffcc00; /* Yellow text */
+  text-decoration: none; /* Remove underline */
 }
 
+/* Hover effect for no-button */
 .no-button:hover {
-  color: #fff;
+  color: #ffffff; /* Change text color to white */
 }
 
+/* Image section styles */
 #images {
-  text-align: center;
+  text-align: center; /* Center align images */
 }
 
-#images h2 {
-  font-size: 2em;
-  margin-bottom: 20px;
-}
-
+/* Image item styles */
 .image-item {
-  margin: 30px auto;
-  position: relative;
-  display: inline-block;
+  margin: 30px auto; /* Center images with margin */
 }
 
+/* Game image styles */
 .game-image {
-  width: 50%;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  animation: hueShift 10s linear infinite;
-  transition: transform 0.3s, filter 0.3s;
+  width: 50%; /* Set image width */
+  border-radius: 15px; /* Rounded corners */
+  margin-bottom: 10px; /* Space below images */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Shadow effect */
+  transition: filter 0.3s ease-in-out; /* Smooth transition for hue */
 }
 
-.game-image:hover {
-  transform: scale(1.05);
-  filter: drop-shadow(0 0 10px red) drop-shadow(0 0 10px orange) drop-shadow(0 0 10px yellow) drop-shadow(0 0 10px green) drop-shadow(0 0 10px blue);
-}
-
-/* Caption */
-.image-item:hover::after {
-  content: attr(data-alt);
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  white-space: nowrap;
-}
-
+/* Canvas styles for particles */
 canvas {
-  position: fixed;
+  position: fixed; /* Fix canvas in the viewport */
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  pointer-events: none;
+  width: 100vw; /* Cover full width */
+  height: 100vh; /* Cover full height */
+  z-index: -1; /* Place behind all content */
+  pointer-events: none; /* Prevent canvas from blocking clicks */
 }
-
-/* === OPTIONAL FX TOGGLE === */
-/* Just remove these comments to enable the fun extras */
-
-/* Retro CRT effect */
-/*
-body {
-  background: black;
-  color: #0f0;
-  font-family: monospace;
-  text-shadow: 0 0 2px #0f0, 0 0 10px #0f0;
-  animation: crtFlicker 0.1s infinite;
-}
-
-@keyframes crtFlicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.98; }
-}
-*/
-
-/* Glitchy headers */
-/*
-@keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
-}
-
-h1, h2, h3 {
-  animation: glitch 0.5s infinite;
-}
-*/
-
-/* Sparkle trail (JS required) */
-/* Add a script that follows cursor with sparkles! */
