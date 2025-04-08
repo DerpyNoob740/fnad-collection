@@ -77,8 +77,7 @@ footer {
   margin-top: var(--margin-large);
 }
 
-footer a,
-header a {
+a {
   color: var(--color-text);
   font-size: 1.1em;
   text-decoration: none;
@@ -87,8 +86,7 @@ header a {
   transition: var(--transition);
 }
 
-footer a:hover,
-header a:hover {
+a:hover {
   background: var(--color-accent);
   color: #ffffff;
   transform: scale(1.1);
