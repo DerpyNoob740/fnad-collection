@@ -35,24 +35,30 @@ class Particle {
     this.size = Math.random() * 2 + 1;
   }
 
-  update() {
-    const dx = mouse.x - this.x;
-    const dy = mouse.y - this.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < mouse.radius) {
-      const angle = Math.atan2(dy, dx);
-      const force = (mouse.radius - dist) / mouse.radius;
-      this.vx -= Math.cos(angle) * force * 0.1;
-      this.vy -= Math.sin(angle) * force * 0.1;
-    }
+update() {
+  const dx = mouse.x - this.x;
+  const dy = mouse.y - this.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
 
-    this.x += this.vx;
-    this.y += this.vy;
-
-    // bounce off edges
-    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+  if (dist < mouse.radius) {
+    const angle = Math.atan2(dy, dx);
+    const force = (mouse.radius - dist) / mouse.radius;
+    this.vx -= Math.cos(angle) * force * 0.2;
+    this.vy -= Math.sin(angle) * force * 0.2;
   }
+
+  // Decay the mouse-influenced velocity
+  this.vx *= 0.95;
+  this.vy *= 0.95;
+
+  // Apply movement
+  this.x += this.baseVX + this.vx;
+  this.y += this.baseVY + this.vy;
+
+  // bounce off edges
+  if (this.x < 0 || this.x > canvas.width) this.baseVX *= -1;
+  if (this.y < 0 || this.y > canvas.height) this.baseVY *= -1;
+}
 
   draw() {
     ctx.beginPath();
