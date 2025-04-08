@@ -8,7 +8,7 @@ const particles = [];
 const mouse = {
   x: null,
   y: null,
-  radius: 100
+  radius: 100,
 };
 
 window.addEventListener("mousemove", (e) => {
@@ -76,7 +76,9 @@ class Particle {
 
   // Check if the particle's position has changed significantly
   hasMoved() {
-    const moved = Math.abs(this.x - this.prevX) > 0.5 || Math.abs(this.y - this.prevY) > 0.5;
+    const moved =
+      Math.abs(this.x - this.prevX) > 0.5 ||
+      Math.abs(this.y - this.prevY) > 0.5;
     if (moved) {
       this.prevX = this.x;
       this.prevY = this.y;
@@ -103,7 +105,11 @@ function drawConnections() {
         const connectionId = `${i}-${j}`; // Unique connection identifier
 
         // Only draw if this connection hasn't been cached or the particles have moved
-        if (!connectionCache.includes(connectionId) || particles[i].hasMoved() || particles[j].hasMoved()) {
+        if (
+          !connectionCache.includes(connectionId) ||
+          particles[i].hasMoved() ||
+          particles[j].hasMoved()
+        ) {
           ctx.beginPath();
           ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / 50})`;
           ctx.lineWidth = 0.5;
