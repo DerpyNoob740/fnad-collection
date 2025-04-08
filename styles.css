@@ -155,7 +155,8 @@ section:hover {
     width: 90%;
   }
 
-  header, footer {
+  header,
+  footer {
     font-size: 0.9em;
   }
 }
