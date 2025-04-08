@@ -66,30 +66,18 @@ h3 {
 }
 
 /* Nav + Footer Containers */
-nav ul,
+header,
 footer {
   background: var(--color-bg-dark);
   border-radius: var(--radius);
   box-shadow: var(--shadow-default);
-}
-
-nav ul {
-  list-style: none;
-  padding: var(--padding);
-  display: flex;
-  justify-content: center;
-  box-shadow: var(--shadow-default); /* override for nav */
-}
-
-footer {
   padding: var(--padding);
   text-align: center;
   margin-top: var(--margin-large);
 }
 
-/* Link Styles */
 footer a,
-nav ul li a {
+header a {
   color: var(--color-text);
   font-size: 1.1em;
   text-decoration: none;
@@ -99,7 +87,7 @@ nav ul li a {
 }
 
 footer a:hover,
-nav ul li a:hover {
+header a:hover {
   background: var(--color-accent);
   color: #ffffff;
   transform: scale(1.1);
