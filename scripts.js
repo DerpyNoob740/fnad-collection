@@ -8,7 +8,7 @@ const particles = [];
 const mouse = {
   x: null,
   y: null,
-  radius: 100
+  radius: 100,
 };
 
 window.addEventListener("mousemove", (e) => {
@@ -19,27 +19,82 @@ window.addEventListener("mousemove", (e) => {
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.5; // Initial random velocity
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.size = Math.random() * 2 + 1;
+    }
+
+    update() {
+      // **Natural Flow**: Adding random changes to velocity for flowing effect
+      this.vx += (Math.random() - 0.5) * 0.05; // Slight random horizontal force
+      this.vy += (Math.random() - 0.5) * 0.05; // Slight random vertical force
+
+      // **Mouse Repulsion**: Keep the mouse interaction as is
+      const mdx = mouse.x - this.x;
+      const mdy = mouse.y - this.y;
+      const distMouse = Math.sqrt(mdx * mdx + mdy * mdy);
+      if (distMouse < mouse.radius) {
+        const angle = Math.atan2(mdy, mdx);
+        const force = (mouse.radius - distMouse) / mouse.radius;
+        this.vx -= Math.cos(angle) * force * 0.2;
+        this.vy -= Math.sin(angle) * force * 0.2;
+      }
+
+      // **Clumping Behavior**: Keep particles away from each other if too close
+      for (let other of particles) {
+        if (other === this) continue;
+        const dx = other.x - this.x;
+        const dy = other.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 75 && dist > 25) {
+          this.vx += dx * 0.0005;
+          this.vy += dy * 0.0005;
+        } else if (dist <= 10) {
+          this.vx -= dx * 0.005;
+          this.vy -= dy * 0.005;
+        }
+      }
+
+      // **Decay**: Gradually reduce speed for more fluid movement
+      this.vx *= 0.95;
+      this.vy *= 0.95;
+
+      // Move particle with updated velocity
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+      ctx.shadowColor = "#ffffff";
+      ctx.shadowBlur = 10;
+      ctx.fill();
+    }
+  }
 });
 
 class Particle {
   constructor() {
-    this.homeX = Math.random() * canvas.width;
-    this.homeY = Math.random() * canvas.height;
-    this.x = this.homeX;
-    this.y = this.homeY;
-    this.vx = 0;
-    this.vy = 0;
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.5; // Initial random velocity
+    this.vy = (Math.random() - 0.5) * 0.5;
     this.size = Math.random() * 2 + 1;
   }
 
   update() {
-    // Home tether
-    const dx = this.homeX - this.x;
-    const dy = this.homeY - this.y;
-    this.vx += dx * 0.0025;
-    this.vy += dy * 0.0025;
+    // **Natural Flow**: Adding random changes to velocity for flowing effect
+    this.vx += (Math.random() - 0.5) * 0.05; // Slight random horizontal force
+    this.vy += (Math.random() - 0.5) * 0.05; // Slight random vertical force
 
-    // Mouse repulsion
+    // **Mouse Repulsion**: Keep the mouse interaction as is
     const mdx = mouse.x - this.x;
     const mdy = mouse.y - this.y;
     const distMouse = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -50,7 +105,7 @@ class Particle {
       this.vy -= Math.sin(angle) * force * 0.2;
     }
 
-    // Clumping behavior
+    // **Clumping Behavior**: Keep particles away from each other if too close
     for (let other of particles) {
       if (other === this) continue;
       const dx = other.x - this.x;
@@ -61,14 +116,16 @@ class Particle {
         this.vx += dx * 0.0005;
         this.vy += dy * 0.0005;
       } else if (dist <= 10) {
-        this.vx -= dx * 0.001;
-        this.vy -= dy * 0.001;
+        this.vx -= dx * 0.005;
+        this.vy -= dy * 0.005;
       }
     }
 
-    // Decay and move
+    // **Decay**: Gradually reduce speed for more fluid movement
     this.vx *= 0.95;
     this.vy *= 0.95;
+
+    // Move particle with updated velocity
     this.x += this.vx;
     this.y += this.vy;
   }
