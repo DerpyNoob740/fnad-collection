@@ -1,21 +1,18 @@
 :root {
-  --color-text: #dddddd;
-  --color-highlight: #ffcc00;
-  --color-accent: #ff8c00;
-  --color-bg-dark: #222222;
-  --color-bg-darker: #444444;
-  --color-bg-overlay: rgba(35, 35, 35, 0.6);
-  --color-border: #555555;
-
-  --shadow-default: 0 0 15px rgba(0, 0, 0, 0.6);
+  --text: #dddddd;
+  --highlight: #ffcc00;
+  --accent: #ff8c00;
+  --bg-dark: #444444;
+  --bg-darker: #222222;
+  --bg-overlay: rgba(35, 35, 35, 0.6);
+  --border: #555555;
+  --shadow: 0 0 15px rgba(0, 0, 0, 0.6);
   --shadow-highlight: 0 0 30px rgba(255, 204, 0, 1);
   --shadow-hover: 0 0 30px;
-
   --radius: 10px;
-  --padding: 10px;
-  --margin-large: 40px;
-
-  --font-main: Arial, sans-serif;
+  --padding: 15px;
+  --margin: 40px;
+  --font: Arial, sans-serif;
   --transition: all 0.3s ease;
 }
 
@@ -24,13 +21,12 @@ html {
 }
 
 body {
-  font-family: var(--font-main);
-  color: var(--color-text);
+  font-family: var(--font);
+  color: var(--text);
+  margin: var(--margin);
   z-index: 0;
-  margin: var(--margin-large);
 }
 
-/* Global overlays: animated background + particle canvas */
 body::before,
 canvas {
   content: "";
@@ -56,49 +52,38 @@ body::before {
   }
 }
 
-/* Headings */
 h1,
 h2,
 h3 {
-  color: var(--color-highlight);
-  text-shadow: var(--shadow-highlight);
+  color: var(--highlight);
+  text-shadow: var(--shadow-hover);
   text-align: center;
   transition: var(--transition);
 }
 
-/* Nav + Footer Containers */
 header,
 footer {
-  background: var(--color-bg-dark);
+  background: var(--bg-darker); /* Dark background for header and footer */
   border-radius: var(--radius);
-  box-shadow: var(--shadow-default);
-  padding: var(--padding);
+  box-shadow: var(--shadow); /* Same shadow as main page sections */
+  padding: var(--padding); /* Same padding as main page sections */
+  margin-top: var(--margin);
   text-align: center;
-  margin-top: var(--margin-large);
-}
-
-a {
-  color: var(--color-text);
-  font-size: 1.1em;
-  text-decoration: none;
-  padding: var(--padding);
-  border-radius: 5px;
   transition: var(--transition);
-  background: var(--color-bg-dark)
 }
 
-a:hover {
-  background: var(--color-accent);
-  color: #ffffff;
-  transform: scale(1.1);
+header:hover,
+footer:hover {
+  box-shadow: var(--shadow-hover); /* Same hover effect */
 }
 
-/* Sections */
 section {
-  padding: var(--padding);
+  background: var(--bg-overlay); /* Overlay background for sections */
   border-radius: var(--radius);
-  background: var(--color-bg-overlay);
-  box-shadow: var(--shadow-default);
+  box-shadow: var(--shadow); /* Same shadow as main page sections */
+  padding: var(--padding); /* Same padding as main page sections */
+  margin-top: var(--margin);
+  text-align: left;
   transition: var(--transition);
 }
 
@@ -106,56 +91,83 @@ section:hover {
   box-shadow: var(--shadow-hover);
 }
 
-/* Divider */
-.section-divider {
+a {
+  color: var(--text);
+  text-decoration: none;
+  padding: var(--padding);
+  border-radius: var(--radius);
+  background: var(--bg-darker);
+  transition: var(--transition);
+  text-align: center;
+}
+
+a:hover {
+  background: var(--accent);
+}
+
+li {
+  margin: var(--margin);
+  background: var(--bg-dark);
+  padding: var(--padding);
+  border-radius: var(--radius);
+}
+
+hr {
   border: none;
   height: 2px;
-  background: var(--color-bg-darker);
-  margin: var(--margin-large) 0;
+  background: var(--bg-dark);
+  margin: var(--margin) 0;
 }
 
-/* Reviews Table */
-#reviews table {
+table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: var(--margin-large);
 }
 
-#reviews th,
-#reviews td {
+th,
+td {
   padding: var(--padding);
-  border: 1px solid var(--color-border);
-  text-align: center;
-  color: var(--color-text);
-}
-
-#reviews th {
-  background: var(--color-bg-darker);
-  color: var(--color-highlight);
-}
-
-.image-item {
+  border: 1px solid var(--border);
   text-align: center;
 }
 
-.game-image {
+th {
+  color: var(--highlight);
+  background: var(--bg-dark);
+}
+
+img {
+  display: block;
+  margin: var(--margin) auto;
   width: 50%;
   border-radius: var(--radius);
-  margin: var(--margin-large);
-  box-shadow: var(--shadow-default);
+  box-shadow: var(--shadow);
+}
+
+.play-now-btn {
+  display: block;
+  box-shadow: var(--shadow);
+}
+
+.play-now-btn:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+iframe {
+  display: block;
+  margin: auto;
+  border-radius: var(--radius);
 }
 
 @media (max-width: 768px) {
   body {
-    margin: 20px;
+    margin: calc(var(--margin) / 2);
   }
-
-  .game-image {
-    width: 90%;
+  img {
+    width: 100%;
   }
-
   header,
   footer {
-    font-size: 0.9em;
+    font-size: 0.85rem;
   }
 }
